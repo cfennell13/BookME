@@ -1,0 +1,162 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>Edit Portfolio</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    
+</head>
+    
+    <style>
+        .fade {
+            opacity: 0;
+            -webkit-transition: opacity .15s linear;
+            transition: opacity .15s linear;
+        }
+        .portfolioType{
+            text-align: center;
+            height: 200px;
+            border: 1px solid #E9EAED;
+            background-color: #03A3BB;
+            padding: 0;
+            cursor: pointer;
+        }
+        .modalSize{
+            position: relative;
+            margin: 0;
+            width: 920px;
+            right: 150px;
+        }
+        .portfolioDescription{
+            width: 100%;
+            height: 100%;
+            margin-top: 15px;
+        }
+        .icon{
+            margin-bottom: 30px;
+        }
+        .descriptionText{
+            color: white;
+        }
+        
+    </style>
+
+<body>
+    <div class="container">  
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content modalSize">
+                    <div class="modal-header">
+                        <h4 class="modal-title">My Modal</h4>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 portfolioType" id="visual">
+                                <div class="portfolioDescription">
+                                    <div class="icon"><img src="Stack%20of%20Photos-50.png"></div>
+                                    <div class="descriptionText">
+                                        Your business is primarily based on visual delivery
+                                        <br>
+                                        <em>(i.e. Photographer, Videographer)</em></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 portfolioType" id="audio">
+                                <div class="portfolioDescription">
+                                    <div class="icon"><img src="Headphones%20Filled-50.png"></div>
+                                    <div class="descriptionText">
+                                        Your business is primarily based on audio delivery
+                                        <br>
+                                        <em>(i.e. Musician, Voice actor)</em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 portfolioType" id="home">
+                                <div class="portfolioDescription">
+                                    <div class="icon"><img src="Home-48.png"></div>
+                                    <div class="descriptionText">
+                                        Your business is primarily based on home repair & maintenence
+                                        <br>
+                                        <em>(i.e. Electrician, Carpenter)</em>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-success" id="submit-button">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    
+    
+    <script type="text/javascript">
+        var chosen = ""
+        $(window).load(function(){
+            $('#myModal').modal('show');
+        });
+        $(".portfolioType").mouseenter(function(){
+            $(this).css("background-color", "#02495D");
+        });
+        
+         $(".portfolioType").mouseleave(function(){
+             if($(this).data("selected") == null){
+                $(this).css("background-color", "#03A3BB");
+             }
+         });
+        $("#visual").click(function(){
+            chosen = "visual";
+            $(".portfolioType").css("background-color", "#03A3BB");
+            $(this).css("background-color", "#02495D");
+            $(this).data("selected", "true");
+            $("#audio").data("selected", null);
+            $("#home").data("selected", null);
+        });
+        $("#audio").click(function(){
+            chosen = "audio";
+            $(".portfolioType").css("background-color", "#03A3BB");
+            $(this).css("background-color", "#02495D");
+            $(this).data("selected", "true");
+            $("#visual").data("selected", null);
+            $("#home").data("selected", null);
+        });
+        $("#home").click(function(){
+            chosen = "home";
+            $(".portfolioType").css("background-color", "#03A3BB");
+            $(this).css("background-color", "#02495D");
+            $(this).data("selected", "true");
+            $("#audio").data("selected", null);
+            $("#visual").data("selected", null);
+        });
+        $("#submit-button").click(function(){
+            if(chosen == "visual"){
+                window.open("visual.html","_self");
+            }
+            else if(chosen == "audio"){
+                window.open("audio.html","_self");
+            }
+            else if(chosen == "home"){
+                window.open("home.html","_self");
+            }
+            else{
+                //do nothing
+            }
+             
+        });
+        
+    </script>
+    
+    
+</body>
+</html>

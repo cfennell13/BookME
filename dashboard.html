@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <script>
+        window.addEventListener("keydown", function(event) {
+            // space, page up, page down and arrow keys:
+            if([32, 33, 34, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        }, false);
+    </script>
+    
+    
+    <style>
+
+        html, body {
+            height: 100%;
+        }
+        div.wrap {
+            height:100%; 
+            overflow:hidden;
+        }
+        body {
+            overflow: hidden; 
+        }
+        #fullPageContainer{
+          height: 400px;
+          background-size:cover;
+          margin-left: 0px;
+          height:100%;
+
+      }
+       #topRow{
+          margin-top: 65px;
+          padding-left: 0px;
+          padding-right: 0px;
+          height: 100%;
+          background-color: #E9EAED;
+
+      }
+      #other{
+        margin-top: 65px;
+        height: 100%;
+        margin-right: 0;
+        background-color: #FFFFFF;
+    }
+    #randomRow{
+        height: 100%;
+    }
+    .businessName{
+        text-align: center;
+    }
+    .business-form{
+        margin-top: 10px;
+    }
+    .messagesRow{
+        border-right: 1px solid #E9EAED;
+        height: 100%;
+        padding: 0;
+    }
+    .usersRow{
+        height: 100%;
+        padding: 0;
+    }
+    .messageContainer{
+        height: 100%;
+    }
+    .text-center{
+        text-align: center;
+        cursor: pointer;
+    }
+    .messageHeader{
+        background-color: #F7F4E5;
+    }
+    .messagesTitle{
+        padding: 5px;
+        margin-top: 0px;
+        text-align: center;
+    }
+    .messageBody{
+        height: 335px;
+        border-bottom: 1px solid #E9EAED;
+    }
+    #userText{
+     margin: 0;
+     height: 175px;
+     resize: none;
+    }
+    .textareaFormDiv{
+        height: 100%;
+    }
+    .sendButton{
+        float: right;
+    }
+    .search{
+        padding: 0px;
+        color: transparent;
+        border: none;
+    }  
+    .logo{
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 10px;
+        height:35px;
+        width:35px;
+        color: transparent;
+        border: none;
+    }
+    .profile{
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        margin-bottom:0px;
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: transparent;
+        border: none;
+    } 
+    .navbar{
+          background-color:#02495D;
+          border:0px;
+          height:65px;
+          /* background-image: url("background.jpg");*/
+      }
+      .navbar-brand{
+          font-size:1.8em;
+      }
+      .Panel{
+      z-index: 1;
+      position:fixed;
+      right:0px;
+      top:65px;
+      bottom:0;
+      padding-top:0px;
+      width:0px;
+      background-color:transparent;
+      opacity: 1;
+      visibility: visible;
+      -webkit-transition: background-color 750ms linear;
+      -moz-transition: background-color 750ms linear;
+      -o-transition: background-color 750ms linear;
+      -ms-transition: background-color 750ms linear;
+      transition: opacity 750ms cubic-bezier(1, 0.04, 0.33, 0.96), width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms linear;
+  }
+  .ShowPanel{
+      z-index: 1;
+      position:fixed;
+      right:0px;
+      top:65px;
+      width:400px;
+      bottom:0;
+      padding-top:0px;
+      background-color: #02495D;
+      opacity: 1;
+      visibility: visible;
+      -webkit-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -moz-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -o-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -ms-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+  }
+  .togglePanel{
+      width: 25px;
+      height: 25px;
+  }
+  .PanelTextBox{
+      width:80%;
+      height:20px;
+      position:relative;
+      top:10px;
+      left:10%;
+  }
+  button#ggl{
+      background: #ccc url('G.png') no-repeat top left;
+      padding-left: 16px;
+      height: 16px;
+    }
+    .QuickMenu{
+        cursor: pointer;
+        padding: 2px;
+        background-color: transparent;
+        width: 80%;
+        height: 20px;
+        left: 10%;
+        position:absolute;
+        color: white;
+    }
+    .QuickMenu:hover{
+        background-color: #07343f;
+    }
+</style>
+
+
+</head>
+<body>
+    
+  <div class="navbar navbar-default navbar-fixed-top" >
+
+    <div class="container" style="overflow:auto">
+
+        <div class="navbar-header" style="padding-bottom:0px;border-bottom:0;width:380px;padding-top:20px;">
+             <a href="browse.html"><button  class="btn logo"><img src="B_icon.png" style="width:35px;height:35px;float:right;" ></button></a>
+
+            <input type="search_bar" placeholder="Search" style="width:300px;float:left:"/>
+
+            <button  class="btn search"><img src="search_icon.png" style="width:30px;height:30px;float:right;" ></button>
+        </div>
+
+        <div class="navbar-right" style="width:30;">
+            <button class="profile" type="button" id="TogglePanel" class="TogglePanel" style="width:30px;height:30px;float:right;"><img src="Profile_icon.png"></button>
+        </div>
+
+    </div>
+
+
+</div>
+    <div class="Panel" id="Panel"></div>
+    <div class="wrap">
+    <div class="container-fluid contentContainer" id="fullPageContainer">
+      <div class="row" id="randomRow">
+        <div class="col-md-4" id="topRow">
+          <h1 class="businessName">Business Name Here</h1>
+          <ul class="list-group">
+            <a href="#" class="list-group-item" id="calandar">Calandar</a>
+            <a href="#" class="list-group-item" id="messages">Messages</a>
+            <a href="#" class="list-group-item" id="settings">Business Information</a>
+            <a href="edit-profile.html" class="list-group-item" id="editPortfolio">Edit Portfolio</a>
+        </ul>
+
+    </div>
+    <div class="col-md-8" id="other">
+        <iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='90%' frameborder='0' scrolling='no'></iframe>    
+    </div>
+</div>
+
+</div>
+</div>
+¬
+<script>
+    $("#calandar").click(function(){
+        $("#other").html("");
+        $("#other").html("<iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>");
+    });
+    $("#messages").click(function(){
+     $("#other").html("");
+     makeMessagesAppear.call($("#other"));
+ });
+    $("#settings").click(function(){
+     $("#other").html('<h1>Business Information</h1><form role="form" class="business-form"><div class="form-group"><label for="name">Name:</label><input type="text" class="form-control" id="businessName"></div><div class="form-group"><label for="headquarters">Heaquarters Location:</label><input type="text" class="form-control" id="businessHqLocation"></div><div class="form-group"><label for="phone">Phone Number:</label><input type="number" class="form-control" id="businessPhone"</div><div class="form-group"><label for="email">Email address:</label><input type="email" class="form-control" id="email"></div><div class="form-group"><label for="about">About:</label><input type="text" class="form-control" id="businessAbout"></div><div class="checkbox"><label><input type="checkbox"> Make Public?</label></div><button type="submit" class="btn btn-default">Submit</button></form>');
+ });
+    $("#editPortfolio").click(function(){
+     $("#other").text("This button will take you to another page to edit your portfolio???"); 
+ });
+
+    function makeMessagesAppear(){
+        $(this).append('<div class="row messageContainer"><div class="col-md-8 messagesRow"><div class="messageHeader"><h2 class="messagesTitle">Messages</h2></div><div class="messageBody"></div><div class="form-group textareaFormDiv"><textarea class="form-control" id="userText"></textarea><button class="btn btn-success sendButton">Send</button></div></div><div class="col-md-4 usersRow"></div></div>');
+        $(".usersRow").append('<table class="table table-hover"><tbody><tr><td class="text-center" id="michael">Michael</td></tr><tr><td class="text-center" id="eunice">Eunice</td></tr><tr><td class="text-center" id="courtney">Courtney</td></tr><tr><td class="text-center" id="hangry">Hangry Michael</td></tr></tbody></table>');  
+    }
+
+    $("#TogglePanel").click(function() {
+      $("#Panel").toggleClass("ShowPanel");
+      $("#Panel").toggleClass("Panel");
+      
+  });
+    $(".profile").click(function(){
+    $("#TogglePanel").toggleClass(".ShowPanel");
+
+    });
+    $(function() {
+    if (sessionStorage.getItem("signedIn"))
+      {
+          $("#Panel").html('<div id="Quicks" class="test" style="postion:absolute;left:0;right:0;top:0;height:110px;"><div style="position:absolute;left:0;right:0;top:0;text-align:center;color:white;">Tasks</div><div class="QuickMenu" style="top:20px"> Messages</div><div class="QuickView" style="top:20px"> </div><a href="dashboard.html"><div class="QuickMenu" style="top:40px"> Notifications</div></a> <a href="browse.html"><div class="QuickView" style="top:20px"> </div><div class="QuickMenu" style="top:60px"> Browse</div></a><div class="QuickView" style="top:20px"/> </div><div class="QuickMenu" style="top:80px"> Try Something New</div><div class="QuickView" style="top:20px"/> </div></div><div style="text-align:center;width:100%;color:white;position:absolute;bottom:0px;height:20px;left:0;right:0;"><a href="" style="color:white;">Need help?</a></div></div>');
+      }
+      else
+      {
+          $("#Panel").html('<div id="SignInForm" name="SignIn" class="SignIn" style="width:100%;height:150px;border-bottom:double 3px white;position:Absolute;top:0;"><div class="row"><div class="col-sm-12" style="text-align:center;color:white;">Sign In</div></div><input type="text" class="form-control" id="SignInEmail" placeholder="Username (Email)" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><button id="SignIn" class="btn btn-default" style="width:30%;height:30px;position:absolute;bottom:10px;left:10%;visibilty:inherit;">Sign In</button></div><!-- turn this to form for production version--><div id="SignUpForm" name="SignUp" class="SignUp" style="width:100%;height:300px;border-bottom:double 3px white;position:Absolute;top:150px;"><div style="width:100%;text-align:center;color:white">Sign Up</div><input type="text" class="form-control" placeholder="First and Last Name" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Email" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Confirm Email" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="password" class="form-control" placeholder="Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="password" class="form-control" placeholder="Confirm Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><button type="submit" class="btn btn-default" style="width:30%;height:30px;position:absolute;bottom:50px;left:10%;visibilty:inherit;" id="SignUp">Sign Up</button><button class="btn btn-default" style="width:40%;height:30px;position:absolute;bottom:10px;left:10%;background-color:#55A43C;color:white;visibilty:inherit;" id="ggl">Google Sign In </button><button class="btn btn-default" style="width:40%;height:30px;position:absolute;bottom:10px;left:50%;background-color:#3b5998;color:white;visibilty:inherit;">Facebook Sign In </button></div><div style="text-align:center;width:100%;color:white;position:absolute;bottom:0px;height:20px;left:0;right:0;"><a href="" style="color:white;">Need help?</a></div>');
+      }
+  }); 
+
+        </script>
+
+
+    </body>
+    </html>

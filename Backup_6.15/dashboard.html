@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <script>
+        window.addEventListener("keydown", function(event) {
+            // space, page up, page down and arrow keys:
+            if([32, 33, 34, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        }, false);
+    </script>
+    
+    
+    <style>
+        
+        html, body {
+            height: 100%;
+        }
+        div.wrap {
+            height:100%; 
+            overflow:hidden;
+        }
+        body {
+            overflow: hidden; 
+        }
+         #fullPageContainer{
+              height: 400px;
+              background-size:cover;
+              margin-left: 0px;
+              height:100%;
+              
+          }
+          #topRow{
+              margin-top: 50px;
+              padding-left: 0px;
+              padding-right: 0px;
+              height: 100%;
+              background-color: #E9EAED;
+             
+          }
+        #other{
+            margin-top: 50px;
+            height: 100%;
+            margin-right: 0;
+            background-color: #FFFFFF;
+        }
+        #randomRow{
+            height: 100%;
+        }
+        .businessName{
+            text-align: center;
+        }
+        .business-form{
+            margin-top: 10px;
+        }
+        .messagesRow{
+            border-right: 1px solid #E9EAED;
+            height: 100%;
+            padding: 0;
+        }
+        .usersRow{
+            height: 100%;
+            padding: 0;
+        }
+        .messageContainer{
+            height: 100%;
+        }
+        .text-center{
+            text-align: center;
+            cursor: pointer;
+        }
+        .messageHeader{
+            background-color: #F7F4E5;
+        }
+        .messagesTitle{
+            padding: 5px;
+            margin-top: 0px;
+            text-align: center;
+        }
+        .messageBody{
+            height: 335px;
+            border-bottom: 1px solid #E9EAED;
+        }
+        #userText{
+           margin: 0;
+           height: 175px;
+           resize: none;
+        }
+        .textareaFormDiv{
+            height: 100%;
+        }
+        .sendButton{
+            float: right;
+        }
+    </style>
+    
+      
+</head>
+<body>
+<div class="wrap">
+     <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                <a href="" class="navbar-brand">My App</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!--Establish button for window collapse-->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#download">Download the App</a></li>
+                </ul>
+                
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Log In</button>
+                    
+                </form> 
+            </div>
+            </div>
+        </div>
+    
+       <div class="container-fluid contentContainer" id="fullPageContainer">
+          <div class="row" id="randomRow">
+            <div class="col-md-4" id="topRow">
+              <h1 class="businessName">Business Name Here</h1>
+                <ul class="list-group">
+                    <a href="#" class="list-group-item" id="calandar">Calandar</a>
+                    <a href="#" class="list-group-item" id="messages">Messages</a>
+                    <a href="#" class="list-group-item" id="settings">Business Information</a>
+                    <a href="edit-profile.html" class="list-group-item" id="editPortfolio">Edit Portfolio</a>
+                </ul>
+                
+            </div>
+              <div class="col-md-8" id="other">
+                <iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>    
+              </div>
+          </div>
+          
+      </div>
+</div>
+    ¬
+    <script>
+        $("#calandar").click(function(){
+            $("#other").html("");
+            $("#other").html("<iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>");
+        });
+        $("#messages").click(function(){
+           $("#other").html("");
+           makeMessagesAppear.call($("#other"));
+        });
+        $("#settings").click(function(){
+           $("#other").html('<h1>Business Information</h1><form role="form" class="business-form"><div class="form-group"><label for="name">Name:</label><input type="text" class="form-control" id="businessName"></div><div class="form-group"><label for="headquarters">Heaquarters Location:</label><input type="text" class="form-control" id="businessHqLocation"></div><div class="form-group"><label for="phone">Phone Number:</label><input type="number" class="form-control" id="businessPhone"</div><div class="form-group"><label for="email">Email address:</label><input type="email" class="form-control" id="email"></div><div class="form-group"><label for="about">About:</label><input type="text" class="form-control" id="businessAbout"></div><div class="checkbox"><label><input type="checkbox"> Make Public?</label></div><button type="submit" class="btn btn-default">Submit</button></form>');
+        });
+        $("#editPortfolio").click(function(){
+           $("#other").text("This button will take you to another page to edit your portfolio???"); 
+        });
+        
+        function makeMessagesAppear(){
+            $(this).append('<div class="row messageContainer"><div class="col-md-8 messagesRow"><div class="messageHeader"><h2 class="messagesTitle">Messages</h2></div><div class="messageBody"></div><div class="form-group textareaFormDiv"><textarea class="form-control" id="userText"></textarea><button class="btn btn-success sendButton">Send</button></div></div><div class="col-md-4 usersRow"></div></div>');
+            $(".usersRow").append('<table class="table table-hover"><tbody><tr><td class="text-center" id="michael">Michael</td></tr><tr><td class="text-center" id="eunice">Eunice</td></tr><tr><td class="text-center" id="courtney">Courtney</td></tr><tr><td class="text-center" id="hangry">Hangry Michael</td></tr></tbody></table>');  
+        }
+        
+        
+        
+        
+        
+        /*
+            name
+            headquarters
+            Support Line
+            Main email
+            about
+            authentication
+            make public
+        */
+        
+    </script>
+    
+    
+</body>
+</html>

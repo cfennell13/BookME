@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<title>Browse Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+  html,body{
+    height: 100%;
+    margin: 0;
+  }
+  #business-categories {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:250px;
+    float:left;
+    padding:5px;        
+  }
+
+  .dark-green {
+    background-color: #81821C;
+  }
+
+  .light-green {
+    background-color: #C0C350;
+  }
+
+  .beige {
+    background-color: #F7F4E5;
+  }
+
+  .light-blue {
+    background-color: #03A3BB;
+
+  }
+
+  .dark-blue {
+    background-color: #02495D;
+  }
+
+  .default-color{
+    background-color: #F9F3DD;
+  }
+
+  .light-grey-color{
+    background-color: #94b8b8;
+  }
+
+  .profile-pic-size {
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-bottom:0px;
+    margin-top: 4px;
+    margin-left: 00px;
+    margin-right: 0px;
+    width: 100px;
+    height: 100px;
+    
+  }
+
+  .circle-border{
+    padding-top: 7px;
+    border-radius: 10px;
+    border: 1px solid #E9EAED;
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  .image-circle-border{
+    border-radius: 10px;
+  }
+
+  .category-sizing {
+    height: 100%;
+
+    padding: 0;
+  }
+  .h4 {
+    text-align: center;
+  }
+
+  .h6 {
+    font-style: italic;
+    text-align: center;
+  }
+
+  .rating {
+    overflow: hidden;
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+  }
+  .rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 0px;
+    opacity: 0;
+  }
+  .rating:hover .rating-star:hover,
+  .rating:hover .rating-star:hover ~ .rating-star,
+  .rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+  }
+  .rating-star,
+  .rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0 -16px;
+  }
+  category-choice{
+    color: transparent;
+  }
+  .center{
+    text-align: center;
+  }
+  .thick-border{
+    border: 2px solid #E9EAED;
+  }
+  .frameContainerProperties{
+    padding: 0;
+    height: 100%;
+  }
+.search{
+        padding: 0px;
+        color: transparent;
+        border: none;
+    }  
+    .logo{
+      padding: 0px;
+      margin-bottom: 10px;
+        height:30px;
+        width:35px;
+        color: transparent;
+        border: none;
+    }
+    .profile{
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;`
+        margin-bottom:0px;
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: transparent;
+        border: none;
+    } 
+    .Panel{
+      z-index: 1;
+      position:fixed;
+      right:0px;
+      top:65px;
+      bottom:0;
+      padding-top:0px;
+      width:0px;
+      background-color:transparent;
+      opacity: 1;
+      visibility: visible;
+      -webkit-transition: background-color 750ms linear;
+      -moz-transition: background-color 750ms linear;
+      -o-transition: background-color 750ms linear;
+      -ms-transition: background-color 750ms linear;
+      transition: opacity 750ms cubic-bezier(1, 0.04, 0.33, 0.96), width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms linear;
+  }
+  .ShowPanel{
+    z-index: 1;
+      position:fixed;
+      right:0px;
+      top:65px;
+      width:400px;
+      bottom:0;
+      padding-top:0px;
+      background-color: #02495D;
+      opacity: 1;
+      visibility: visible;
+      -webkit-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -moz-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -o-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      -ms-transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+      transition: width 750ms cubic-bezier(1, 0.04, 0.33, 0.96), background-color 750ms cubic-bezier(1, 0.04, 0.33, 0.96);
+  }
+  .togglePanel{
+      width: 25px;
+      height: 25px;
+  }
+  .PanelTextBox{
+      width:80%;
+      height:20px;
+      position:relative;
+      top:10px;
+      left:10%;
+  }
+  button#ggl{
+      background: #ccc url('G.png') no-repeat top left;
+      padding-left: 16px;
+      height: 16px;
+    }
+    .QuickMenu{
+        padding: 2px;
+        background-color: transparent;
+        width: 80%;
+        height: 20px;
+        left: 10%;
+        position:absolute;
+        color: white;
+    }
+    .QuickMenu:hover{
+        background-color: #07343f;
+    }
+      #topRow{
+          margin-top: 65px;
+          padding-left: 0px;
+          padding-right: 0px;
+          height: 100%;
+          background-color: #E9EAED;
+
+      }
+      .navbar{
+          background-color:#02495D;
+          border:0px;
+          height:65px;
+          /* background-image: url("background.jpg");*/
+      }
+</style>
+
+<body onload="randColor()">
+<div class="Panel" id="Panel"></div>
+  <div class="navbar navbar-default navbar-fixed-top" >
+
+    <div class="container" style="overflow:auto">
+
+        <div class="navbar-header" style="padding-bottom:0px;border-bottom:0;width:380px;padding-top:20px;">
+             <a href="browse.html"><button  class="btn logo"><img src="B_icon.png" style="width:35px;height:35px;float:right;" ></button></a>
+
+            <input type="search_bar" placeholder="Search" style="width:300px;float:left:"/>
+
+            <button  class="btn search"><img src="search_icon.png" style="width:30px;height:30px;float:right;" ></button>
+        </div>
+
+        <div class="navbar-right" style="width:30;">
+            <button class="profile" type="button" id="TogglePanel" class="TogglePanel" style="width:30px;height:30px;float:right;"><img src="Profile_icon.png"></button>
+        </div>
+
+    </div>
+
+
+</div>
+<div id="topRow">
+  <div class="w3-third w3-container beige category-sizing">
+    <h1 class="center">Categories</h1>
+    <ul class="list-group ">
+      <a href="#" class="list-group-item beige thick-border" id="popular">Popular</a>
+      <a href="#" class="list-group-item beige thick-border" id="beauty">Beauty</a>
+      <a href="#" class="list-group-item beige thick-border" id="music">Music</a>
+      <a href="#" class="list-group-item beige thick-border" id="photo">Photography</a>
+    </ul>
+  </div>
+
+
+  <div class="w3-twothird w3-container frameContainerProperties" id="iframe_ID">
+    <iframe id ="frame-i" src="popular.html" width='800' frameborder='0' height="604"></iframe>
+  </div>
+</div>
+
+</body>
+</html>
+<script>
+  function randColor(){
+    for(var i = 1; i <= 5; i++){
+      var div_id = "profile-" + i;
+      if(i === 1){
+        $('#' + div_id).addClass('dark-green');
+      }else if(i === 2){
+        $('#' + div_id).addClass('light-green');
+      }else if(i === 3){
+        $('#' + div_id).addClass('light-grey-color');
+      }else if(i === 4){
+        $('#' + div_id).addClass('dark-blue');
+      }else if(i === 5){
+        $('#' + div_id).addClass('light-blue');
+      }else{
+        $('#' + div_id).addClass('default-color');
+      }
+
+    }
+
+  }
+  $("#popular").click(function(){
+    $('#frame-i').attr('src', 'popular.html');
+  });
+
+  $("#beauty").click(function(){
+    $('#frame-i').attr('src', 'beauty.html');
+  });
+
+  $("#music").click(function(){
+    $('#frame-i').attr('src', 'music.html');
+  });
+
+  $("#photo").click(function(){
+    $('#frame-i').attr('src', 'photography.html');
+  });
+
+  $(function() {
+    if (sessionStorage.getItem("signedIn"))
+      {
+          $("#Panel").html('<div id="Quicks" class="test" style="postion:absolute;left:0;right:0;top:0;height:110px;"><div style="position:absolute;left:0;right:0;top:0;text-align:center;color:white;">Tasks</div><div class="QuickMenu" style="top:20px"> Messages</div><div class="QuickView" style="top:20px"> </div><a href="dashboard.html"><div class="QuickMenu" style="top:40px"> Notifications</div></a> <a href="browse.html"><div class="QuickView" style="top:20px"> </div><div class="QuickMenu" style="top:60px"> Browse</div></a><div class="QuickView" style="top:20px"/> </div><div class="QuickMenu" style="top:80px"> Try Something New</div><div class="QuickView" style="top:20px"/> </div></div><div style="text-align:center;width:100%;color:white;position:absolute;bottom:0px;height:20px;left:0;right:0;"><a href="" style="color:white;">Need help?</a></div></div>');
+      }
+      else
+      {
+          //alert("first load or no dice");
+          $("#Panel").html('<div id="SignInForm" name="SignIn" class="SignIn" style="width:100%;height:150px;border-bottom:double 3px white;position:Absolute;top:0;"><div class="row"><div class="col-sm-12" style="text-align:center;color:white;">Sign In</div></div><input type="text" class="form-control" id="SignInEmail" placeholder="Username (Email)" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><button id="SignIn" class="btn btn-default" style="width:30%;height:30px;position:absolute;bottom:10px;left:10%;visibilty:inherit;">Sign In</button></div><!-- turn this to form for production version--><div id="SignUpForm" name="SignUp" class="SignUp" style="width:100%;height:300px;border-bottom:double 3px white;position:Absolute;top:150px;"><div style="width:100%;text-align:center;color:white">Sign Up</div><input type="text" class="form-control" placeholder="First and Last Name" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Email" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="text" class="form-control" placeholder="Confirm Email" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="password" class="form-control" placeholder="Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><input type="password" class="form-control" placeholder="Confirm Password" style="width:80%;position:relative;left:10%;visibilty:inherit;" required/><button type="submit" class="btn btn-default" style="width:30%;height:30px;position:absolute;bottom:50px;left:10%;visibilty:inherit;" id="SignUp">Sign Up</button><button class="btn btn-default" style="width:40%;height:30px;position:absolute;bottom:10px;left:10%;background-color:#55A43C;color:white;visibilty:inherit;" id="ggl">Google Sign In </button><button class="btn btn-default" style="width:40%;height:30px;position:absolute;bottom:10px;left:50%;background-color:#3b5998;color:white;visibilty:inherit;">Facebook Sign In </button></div><div style="text-align:center;width:100%;color:white;position:absolute;bottom:0px;height:20px;left:0;right:0;"><a href="" style="color:white;">Need help?</a></div>');
+      }
+  }); 
+  $(".profile").click(function(){
+    $("#TogglePanel").toggleClass(".ShowPanel");
+
+});
+
+  $("#TogglePanel").click(function() {
+      $("#Panel").toggleClass("ShowPanel");
+      $("#Panel").toggleClass("Panel");
+      
+  });
+  $("#SignIn").click(function() {
+     sessionStorage.setItem("signedIn", true);
+     if(sessionStorage.getItem("signedIn") )
+     {
+         
+     }
+  });
+
+</script>

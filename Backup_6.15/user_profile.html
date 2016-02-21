@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <script>
+        window.addEventListener("keydown", function(event) {
+            // space, page up, page down and arrow keys:
+            if([32, 33, 34, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        }, false);
+    </script>
+    
+    
+    <style>
+
+        html, body {
+            height: 100%;
+        }
+        div.wrap {
+            height:100%; 
+            overflow:hidden;
+        }
+        body {
+            overflow: hidden; 
+        }
+        #fullPageContainer{
+          height: 400px;
+          background-size:cover;
+          margin-left: 0px;
+          height:100%;
+
+      }
+      #topRow{
+          margin-top: 50px;
+          padding-left: 0px;
+          padding-right: 0px;
+          height: 100%;
+          background-color: #E9EAED;
+
+      }
+      #other{
+        margin-top: 50px;
+        height: 100%;
+        margin-right: 0;
+        background-color: #FFFFFF;
+    }
+    #randomRow{
+        height: 100%;
+    }
+    .userName{
+        text-align: center;
+    }
+    .business-form{
+        margin-top: 10px;
+    }
+    .messagesRow{
+        border-right: 1px solid #E9EAED;
+        height: 100%;
+        padding: 0;
+    }
+    .usersRow{
+        height: 100%;
+        padding: 0;
+    }
+    .messageContainer{
+        height: 100%;
+    }
+    .text-center{
+        text-align: center;
+        cursor: pointer;
+    }
+    .messageHeader{
+        background-color: #F7F4E5;
+    }
+    .messagesTitle{
+        padding: 5px;
+        margin-top: 0px;
+        text-align: center;
+    }
+    .messageBody{
+        height: 335px;
+        border-bottom: 1px solid #E9EAED;
+    }
+    #userText{
+     margin: 0;
+     height: 175px;
+     resize: none;
+    }
+    .textareaFormDiv{
+        height: 100%;
+    }
+    .sendButton{
+        float: right;
+    }
+</style>
+
+
+</head>
+<body>
+
+    <div class="container-fluid contentContainer" id="fullPageContainer">
+      <div class="row" id="randomRow">
+        <div class="col-md-4" id="topRow">
+          <h1 class="userName">Name Here</h1>
+          <ul class="list-group">
+            <a href="#" class="list-group-item" id="calandar">Calandar</a>
+            <a href="#" class="list-group-item" id="messages">Messages</a>
+            <a href="#" class="list-group-item" id="settings">User Information</a>
+            <a href="#" class="list-group-item" id="favorites">Favorites</a>
+        </ul>
+
+    </div>
+    <div class="col-md-8" id="other">
+        <iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>    
+    </div>
+</div>
+
+</div>
+</div>
+¬
+<script>
+    $("#calandar").click(function(){
+        $("#other").html("");
+        $("#other").html("<iframe src='https://calendar.google.com/calendar/embed?src=cleanchilla%40gmail.com&ctz=America/Chicago' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>");
+    });
+    $("#messages").click(function(){
+     $("#other").html("");
+     makeMessagesAppear.call($("#other"));
+ });
+    $("#settings").click(function(){
+     $("#other").html('<h1>User Information</h1><form role="form" class="business-form"><div class="form-group"><label for="name">Name:</label><input type="text" class="form-control" id="userName"></div><div class="form-group"><label for="headquarters"> Zipcode:</label><input type="text" class="form-control"></div><div class="form-group"><label for="phone">Phone Number:</label><input type="number" class="form-control" id="businessPhone"</div><div class="form-group"><label for="email">Email address:</label><input type="email" class="form-control" id="email"></div><div class="form-group"><button type="submit" class="btn btn-default">Submit</button></form>');
+ });
+    $("#favorites").click(function(){
+        $("#other").html("");
+        $("#other").html("<iframe src='favorites.html' style='border: 0' width='800' height='600' frameborder='0' scrolling='no'></iframe>");
+    });
+
+    function makeMessagesAppear(){
+        $(this).append('<div class="row messageContainer"><div class="col-md-8 messagesRow"><div class="messageHeader"><h2 class="messagesTitle">Messages</h2></div><div class="messageBody"></div><div class="form-group textareaFormDiv"><textarea class="form-control" id="userText"></textarea><button class="btn btn-success sendButton">Send</button></div></div><div class="col-md-4 usersRow"></div></div>');
+        $(".usersRow").append('<table class="table table-hover"><tbody><tr><td class="text-center" id="michael">Michael</td></tr><tr><td class="text-center" id="eunice">Eunice</td></tr><tr><td class="text-center" id="courtney">Courtney</td></tr><tr><td class="text-center" id="hangry">Hangry Michael</td></tr></tbody></table>');  
+    }
+
+
+
+
+
+
+
+
+        /*
+            name
+            headquarters
+            Support Line
+            Main email
+            about
+            authentication
+            make public
+            */
+
+        </script>
+
+
+    </body>
+    </html>
